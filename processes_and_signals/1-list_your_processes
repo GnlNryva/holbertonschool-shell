@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-#cmt
-ps -e -o user,pid,ppid,cmd --forest
+# This script displays all running processes including hierarchy for all users
+
+ps auxf
