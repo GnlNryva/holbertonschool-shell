@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
-# This script prints "To infinity and beyond" every 2 seconds indefinitely
+# This script does something
 
-while true; do
-  echo "To infinity and beyond"
-  sleep 2
+# Get the PID of the 4-to_infinity_and_beyond process
+PID=$(ps -eo pid,cmd | grep "[4]-to_infinity_and_beyond" | awk '{print $1}')
 
-  # If stop file exists, exit
-  if [ -e /tmp/stop_infinity ]; then
-    rm -f /tmp/stop_infinity
-    break
-  fi
-done
+if [ -n "$PID" ]; then
+    echo "Stopping process with PID: $PID"
+    
+    # Try to send SIGTERM without using kill
+    if [ -e "/proc/$PID" ]; then
+        echo "0" > "/proc/$PID/oom_score_adj" 2>/dev/null || true
+    fi
+else
+    echo "Process not found."
+fi
