@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
-# This script prints "To infinity and beyond" every 2 seconds indefinitely
+# This script kills the 7-highlander process completely
 
-while true; do
-  echo "To infinity and beyond"
-  sleep 2
+pid=$(pgrep -f "7-highlander")
 
-  # If stop file exists, exit
-  if [ -e /tmp/stop_infinity ]; then
-    rm -f /tmp/stop_infinity
-    break
-  fi
-done
+if [ -n "$pid" ]; then
+  kill -9 "$pid"
+fi
