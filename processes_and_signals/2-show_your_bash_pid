@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# scrp
+ps auxf | grep bash
