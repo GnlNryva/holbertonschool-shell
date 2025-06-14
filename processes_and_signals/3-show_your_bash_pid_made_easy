@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# scrpt
+for pid_dir in /proc/[0-9]*; do
+    pid=$(basename "$pid_dir")
+    if [[ -r "$pid_dir/comm" ]]; then
+        proc_name=$(cat "$pid_dir/comm")
+        if [[ "$proc_name" == *bash* ]]; then
+            echo "$pid $proc_name"
+        fi
+    fi
+done
